@@ -56,11 +56,6 @@ translationunit
     declarationseq? EOF
 ;
 
-includeInfo
-:
-    '#include' '<'[a-zA-Z]+  '>'
-;
-
 
 /*Expressions*/
 primaryexpression
@@ -401,10 +396,13 @@ statement
 labeledstatement
 :
 	attributespecifierseq? Identifier ':' statement
-	| attributespecifierseq? Case constantexpression ':' statement
+	| singleexprcase
 	| attributespecifierseq? Default ':' statement
 ;
 
+singleexprcase:
+    attributespecifierseq? Case constantexpression ':' statement
+;
 
 
 expressionstatement
