@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Created by ysyang on 20/12/2016.
@@ -17,13 +18,21 @@ public class PathFinder extends CPP14BaseListener {
     PrintStream printStream ;
     String toPrint;
     int currentLineNo = 0;
-
-     public PathFinder() throws FileNotFoundException {
+    int maxLineNo;
+    int mainLineNo = 0;
+    int firstFundef = 0;
+    ArrayList<String> headerinfo = null;
+     public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("im/im.cpp");
          printStream = new PrintStream(os);
          toPrint = "print(\" *** \";)";
-
-
+         firstFundef = ff;
+         headerinfo = h;
+         maxLineNo = ml;
+         mainLineNo = mainlineno;
+         for (String s:headerinfo){
+             printStream.println(s);
+         }
 
      }
 
@@ -34,7 +43,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void exitSingleexprcase(CPP14Parser.SingleexprcaseContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
     }
 
     @Override
@@ -604,7 +613,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterStatementseq(CPP14Parser.StatementseqContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
         super.enterStatementseq(ctx);
     }
 
@@ -2124,11 +2133,21 @@ public class PathFinder extends CPP14BaseListener {
     @Override
     public void visitTerminal(TerminalNode node) {
         Token tk= node.getSymbol();
-        if (currentLineNo < tk.getLine()){
-            printStream.println(currentLineNo);
+        if (currentLineNo < tk.getLine()) {
+            if (currentLineNo == mainLineNo){
+                printStream.println("stdout = freopen(\"ir.c\",\"w\",stdout);");
+            }
+            if (tk.getLine() > firstFundef && tk.getLine() < maxLineNo){
+                printStream.println(" printf(\"%d \", " + currentLineNo + ");");
+            }
+
             currentLineNo = tk.getLine();
         }
-        printStream.print(tk.getText()+" ");
+
+        if (tk.getText() != "<EOF>"){
+            printStream.print(tk.getText()+" ");
+        }
+
 
 //        printStream.print(tk.getLine()+" ");
 
