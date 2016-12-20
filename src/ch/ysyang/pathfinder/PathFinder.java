@@ -2,22 +2,102 @@ package ch.ysyang.pathfinder;
 
 import ch.ysyang.gen.*;
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.io.*;
+
 /**
  * Created by ysyang on 20/12/2016.
  */
 public class PathFinder extends CPP14BaseListener {
+    OutputStream os;
+    PrintStream printStream ;
+    String toPrint;
+
+     public PathFinder() throws FileNotFoundException {
+         os = new FileOutputStream("im/im.cpp");
+         printStream = new PrintStream(os);
+         toPrint = "print(\" *** \")";
+
+
+
+     }
+
+    @Override
+    public void enterSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx) {
+        printStream.print(toPrint);
+    }
+
+    @Override
+    public void exitSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx) {
+        super.exitSwitchblockstatement(ctx);
+    }
+
+    @Override
+    public void enterIfblockstatement(CPP14Parser.IfblockstatementContext ctx) {
+        printStream.print(toPrint);
+        super.enterIfblockstatement(ctx);
+    }
+
+    @Override
+    public void exitIfblockstatement(CPP14Parser.IfblockstatementContext ctx) {
+        super.exitIfblockstatement(ctx);
+    }
+
+    @Override
+    public void enterElseblockstatement(CPP14Parser.ElseblockstatementContext ctx) {
+        printStream.print(toPrint);
+        super.enterElseblockstatement(ctx);
+    }
+
+    @Override
+    public void exitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx) {
+        super.exitElseblockstatement(ctx);
+    }
+
+    @Override
+    public void enterWhileblockstatement(CPP14Parser.WhileblockstatementContext ctx) {
+        printStream.print(toPrint);
+        super.enterWhileblockstatement(ctx);
+    }
+
+    @Override
+    public void exitWhileblockstatement(CPP14Parser.WhileblockstatementContext ctx) {
+        super.exitWhileblockstatement(ctx);
+    }
+
+    @Override
+    public void enterForblockstatement(CPP14Parser.ForblockstatementContext ctx) {
+        printStream.print(toPrint);
+        super.enterForblockstatement(ctx);
+    }
+
+    @Override
+    public void exitForblockstatement(CPP14Parser.ForblockstatementContext ctx) {
+        super.exitForblockstatement(ctx);
+    }
+
     @Override
     public void enterTranslationunit(CPP14Parser.TranslationunitContext ctx) {
+
+
         super.enterTranslationunit(ctx);
     }
 
     @Override
     public void exitTranslationunit(CPP14Parser.TranslationunitContext ctx) {
+
+        printStream.close();
+        try {
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         super.exitTranslationunit(ctx);
     }
 
@@ -513,12 +593,17 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterSelectionstatement(CPP14Parser.SelectionstatementContext ctx) {
+        // printStream.print(" ");
+
         super.enterSelectionstatement(ctx);
     }
 
     @Override
     public void exitSelectionstatement(CPP14Parser.SelectionstatementContext ctx) {
-        super.exitSelectionstatement(ctx);
+
+
+//        printStream.print(" print(\"hello\") ");
+//         super.exitSelectionstatement(ctx);
     }
 
     @Override
@@ -2003,8 +2088,11 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterEveryRule(ParserRuleContext ctx) {
-        System.out.println(ctx.getText());
-    }
+     //  System.out.println(ctx.getText());
+//        int i = ctx.getChildCount();
+//        for(int j =0 ; j<i;j++)
+//        printStream.print(ctx.getChild(j).toString());
+     }
 
     @Override
     public void exitEveryRule(ParserRuleContext ctx) {
@@ -2013,7 +2101,10 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void visitTerminal(TerminalNode node) {
-        super.visitTerminal(node);
+        Token tk= node.getSymbol();
+
+         printStream.print(tk.getText()+" ");
+       //  super.visitTerminal(node);
     }
 
     @Override

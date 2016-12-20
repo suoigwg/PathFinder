@@ -1,5 +1,6 @@
+// Generated from /Users/yingyue/Documents/JAVA/PathFinder/grammar/CPP14.g4 by ANTLR 4.5.3
+
 package ch.ysyang.gen;
-// Generated from /Users/ysyang/WorkSpace/PathFinder/grammar/CPP14.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -518,6 +519,36 @@ public interface CPP14Listener extends ParseTreeListener {
 	 */
 	void exitSelectionstatement(CPP14Parser.SelectionstatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#switchblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#switchblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#ifblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfblockstatement(CPP14Parser.IfblockstatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#ifblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfblockstatement(CPP14Parser.IfblockstatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#elseblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseblockstatement(CPP14Parser.ElseblockstatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#elseblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CPP14Parser#condition}.
 	 * @param ctx the parse tree
 	 */
@@ -537,6 +568,26 @@ public interface CPP14Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIterationstatement(CPP14Parser.IterationstatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#whileblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileblockstatement(CPP14Parser.WhileblockstatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#whileblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileblockstatement(CPP14Parser.WhileblockstatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#forblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterForblockstatement(CPP14Parser.ForblockstatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#forblockstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitForblockstatement(CPP14Parser.ForblockstatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CPP14Parser#forinitstatement}.
 	 * @param ctx the parse tree

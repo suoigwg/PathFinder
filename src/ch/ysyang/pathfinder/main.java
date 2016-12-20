@@ -9,6 +9,7 @@ import ch.ysyang.gen.*;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by ysyang on 20/12/2016.
@@ -18,9 +19,12 @@ public class main {
         String inputFile = null;
         if (args.length > 0) inputFile = args[0];
         InputStream is = System.in;
-        if (inputFile != null){
-            is = new FileInputStream(inputFile);
-        }
+//         if (inputFile != null){
+//            is = new FileInputStream(inputFile);
+//        }
+//
+        is  = new FileInputStream("test/test1.cpp");
+
         ANTLRInputStream input = new ANTLRInputStream(is);
         CPP14Lexer lexer = new CPP14Lexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

@@ -1,6 +1,5 @@
+// Generated from /Users/yingyue/Documents/JAVA/PathFinder/grammar/CPP14.g4 by ANTLR 4.5.3
 package ch.ysyang.gen;
-
-// Generated from /Users/ysyang/WorkSpace/PathFinder/grammar/CPP14.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -318,6 +317,24 @@ public interface CPP14Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSelectionstatement(CPP14Parser.SelectionstatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CPP14Parser#switchblockstatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CPP14Parser#ifblockstatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfblockstatement(CPP14Parser.IfblockstatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CPP14Parser#elseblockstatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CPP14Parser#condition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -329,6 +346,18 @@ public interface CPP14Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIterationstatement(CPP14Parser.IterationstatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CPP14Parser#whileblockstatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileblockstatement(CPP14Parser.WhileblockstatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CPP14Parser#forblockstatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForblockstatement(CPP14Parser.ForblockstatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CPP14Parser#forinitstatement}.
 	 * @param ctx the parse tree

@@ -53,7 +53,7 @@ grammar CPP14;
 /*Basic concepts*/
 translationunit
 :
-	declarationseq? EOF
+    declarationseq? EOF
 ;
 
 /*Expressions*/
@@ -417,10 +417,48 @@ statementseq
 
 selectionstatement
 :
-	If '(' condition ')' statement
-	| If '(' condition ')' statement Else statement
-	| Switch '(' condition ')' statement
+	If '(' condition ')' ifblockstatement
+	| If '(' condition ')' ifblockstatement Else elseblockstatement
+	| Switch '(' condition ')' switchblockstatement
 ;
+switchblockstatement
+
+:
+	labeledstatement
+	| attributespecifierseq? expressionstatement
+	| attributespecifierseq? compoundstatement
+	| attributespecifierseq? selectionstatement
+	| attributespecifierseq? iterationstatement
+	| attributespecifierseq? jumpstatement
+	| declarationstatement
+	| attributespecifierseq? tryblock
+;
+
+
+ifblockstatement
+:
+	labeledstatement
+	| attributespecifierseq? expressionstatement
+	| attributespecifierseq? compoundstatement
+	| attributespecifierseq? selectionstatement
+	| attributespecifierseq? iterationstatement
+	| attributespecifierseq? jumpstatement
+	| declarationstatement
+	| attributespecifierseq? tryblock
+;
+
+elseblockstatement
+:
+	labeledstatement
+	| attributespecifierseq? expressionstatement
+	| attributespecifierseq? compoundstatement
+	| attributespecifierseq? selectionstatement
+	| attributespecifierseq? iterationstatement
+	| attributespecifierseq? jumpstatement
+	| declarationstatement
+	| attributespecifierseq? tryblock
+;
+
 
 condition
 :
@@ -431,11 +469,34 @@ condition
 
 iterationstatement
 :
-	While '(' condition ')' statement
-	| Do statement While '(' expression ')' ';'
-	| For '(' forinitstatement condition? ';' expression? ')' statement
-	| For '(' forrangedeclaration ':' forrangeinitializer ')' statement
+	While '(' condition ')' whileblockstatement
+	| Do whileblockstatement While '(' expression ')' ';'
+	| For '(' forinitstatement condition? ';' expression? ')' forblockstatement
+	| For '(' forrangedeclaration ':' forrangeinitializer ')' forblockstatement
 ;
+whileblockstatement
+:
+	labeledstatement
+	| attributespecifierseq? expressionstatement
+	| attributespecifierseq? compoundstatement
+	| attributespecifierseq? selectionstatement
+	| attributespecifierseq? iterationstatement
+	| attributespecifierseq? jumpstatement
+	| declarationstatement
+	| attributespecifierseq? tryblock
+;
+forblockstatement
+:
+	labeledstatement
+	| attributespecifierseq? expressionstatement
+	| attributespecifierseq? compoundstatement
+	| attributespecifierseq? selectionstatement
+	| attributespecifierseq? iterationstatement
+	| attributespecifierseq? jumpstatement
+	| declarationstatement
+	| attributespecifierseq? tryblock
+;
+
 
 forinitstatement
 :
