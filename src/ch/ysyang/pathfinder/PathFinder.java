@@ -23,7 +23,7 @@ public class PathFinder extends CPP14BaseListener {
     int firstFundef = 0;
     ArrayList<String> headerinfo = null;
      public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
-         os = new FileOutputStream("im/im.cpp");
+         os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
          toPrint = "print(\" *** \";)";
          firstFundef = ff;
@@ -2134,9 +2134,9 @@ public class PathFinder extends CPP14BaseListener {
     public void visitTerminal(TerminalNode node) {
         Token tk= node.getSymbol();
         if (currentLineNo < tk.getLine()) {
-            if (currentLineNo == mainLineNo){
-                printStream.println("stdout = freopen(\"ir.c\",\"w\",stdout);");
-            }
+//            if (currentLineNo == mainLineNo){
+//                printStream.println("freopen(\".\\ir.c\",\"w\",stdout);");
+//            }
             if (tk.getLine() > firstFundef && tk.getLine() < maxLineNo){
                 printStream.println(" printf(\"%d \", " + currentLineNo + ");");
             }
