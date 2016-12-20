@@ -1,11 +1,10 @@
 package ch.ysyang.pathfinder;
 
-import ch.ysyang.gen.*;
+import ch.ysyang.gen.CPP14BaseListener;
+import ch.ysyang.gen.CPP14Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
@@ -17,6 +16,7 @@ public class PathFinder extends CPP14BaseListener {
     OutputStream os;
     PrintStream printStream ;
     String toPrint;
+    int currentLineNo = 0;
 
      public PathFinder() throws FileNotFoundException {
          os = new FileOutputStream("im/im.cpp");
@@ -29,7 +29,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterIfblockstatement(CPP14Parser.IfblockstatementContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
         super.enterIfblockstatement(ctx);
     }
 
@@ -50,7 +50,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterElseblockstatement(CPP14Parser.ElseblockstatementContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
         super.enterElseblockstatement(ctx);
     }
 
@@ -61,7 +61,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterWhileblockstatement(CPP14Parser.WhileblockstatementContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
         super.enterWhileblockstatement(ctx);
     }
 
@@ -72,7 +72,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterForblockstatement(CPP14Parser.ForblockstatementContext ctx) {
-        printStream.print(toPrint);
+//        printStream.print(toPrint);
         super.enterForblockstatement(ctx);
     }
 
@@ -573,7 +573,8 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterCompoundstatement(CPP14Parser.CompoundstatementContext ctx) {
-        super.enterCompoundstatement(ctx);
+
+         super.enterCompoundstatement(ctx);
     }
 
     @Override
@@ -583,6 +584,7 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterStatementseq(CPP14Parser.StatementseqContext ctx) {
+        printStream.print(toPrint);
         super.enterStatementseq(ctx);
     }
 
@@ -2102,9 +2104,15 @@ public class PathFinder extends CPP14BaseListener {
     @Override
     public void visitTerminal(TerminalNode node) {
         Token tk= node.getSymbol();
+        if (currentLineNo < tk.getLine()){
+            printStream.println();
+            currentLineNo = tk.getLine();
+        }
+        printStream.print(tk.getText()+" ");
 
-         printStream.print(tk.getText()+" ");
-       //  super.visitTerminal(node);
+//        printStream.print(tk.getLine()+" ");
+
+        //  super.visitTerminal(node);
     }
 
     @Override
