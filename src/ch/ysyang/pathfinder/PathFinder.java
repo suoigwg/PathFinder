@@ -21,11 +21,31 @@ public class PathFinder extends CPP14BaseListener {
      public PathFinder() throws FileNotFoundException {
          os = new FileOutputStream("im/im.cpp");
          printStream = new PrintStream(os);
-         toPrint = "print(\" *** \")";
+         toPrint = "print(\" *** \";)";
 
 
 
      }
+
+    @Override
+    public void enterSingleexprcase(CPP14Parser.SingleexprcaseContext ctx) {
+
+    }
+
+    @Override
+    public void exitSingleexprcase(CPP14Parser.SingleexprcaseContext ctx) {
+        printStream.print(toPrint);
+    }
+
+    @Override
+    public void enterIfstmt(CPP14Parser.IfstmtContext ctx) {
+        super.enterIfstmt(ctx);
+    }
+
+    @Override
+    public void exitIfstmt(CPP14Parser.IfstmtContext ctx) {
+        super.exitIfstmt(ctx);
+    }
 
     @Override
     public void enterSwitchblockstatement(CPP14Parser.SwitchblockstatementContext ctx) {
@@ -2105,7 +2125,7 @@ public class PathFinder extends CPP14BaseListener {
     public void visitTerminal(TerminalNode node) {
         Token tk= node.getSymbol();
         if (currentLineNo < tk.getLine()){
-            printStream.println();
+            printStream.println(currentLineNo);
             currentLineNo = tk.getLine();
         }
         printStream.print(tk.getText()+" ");

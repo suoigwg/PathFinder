@@ -1,6 +1,6 @@
-// Generated from /Users/yingyue/Documents/JAVA/PathFinder/grammar/CPP14.g4 by ANTLR 4.5.3
-
+// Generated from /Users/ysyang/WorkSpace/PathFinder/grammar/CPP14.g4 by ANTLR 4.6
 package ch.ysyang.gen;
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -479,6 +479,16 @@ public interface CPP14Listener extends ParseTreeListener {
 	 */
 	void exitLabeledstatement(CPP14Parser.LabeledstatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#singleexprcase}.
+	 * @param ctx the parse tree
+	 */
+	void enterSingleexprcase(CPP14Parser.SingleexprcaseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#singleexprcase}.
+	 * @param ctx the parse tree
+	 */
+	void exitSingleexprcase(CPP14Parser.SingleexprcaseContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CPP14Parser#expressionstatement}.
 	 * @param ctx the parse tree
 	 */
@@ -548,6 +558,16 @@ public interface CPP14Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CPP14Parser#ifstmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfstmt(CPP14Parser.IfstmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CPP14Parser#ifstmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfstmt(CPP14Parser.IfstmtContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CPP14Parser#condition}.
 	 * @param ctx the parse tree
