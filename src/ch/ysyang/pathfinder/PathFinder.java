@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by ysyang on 20/12/2016.
@@ -22,6 +23,7 @@ public class PathFinder extends CPP14BaseListener {
     int mainLineNo = 0;
     int firstFundef = 0;
     ArrayList<String> headerinfo = null;
+    HashSet<Integer> printedLine = null;
      public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
@@ -30,11 +32,26 @@ public class PathFinder extends CPP14BaseListener {
          headerinfo = h;
          maxLineNo = ml;
          mainLineNo = mainlineno;
+         printedLine = new HashSet<Integer>();
          for (String s:headerinfo){
              printStream.println(s);
          }
 
      }
+
+    public  void printLeftBrack(){
+        printStream.print("{");
+    }
+
+    public void printRightBrack(ParserRuleContext ctx){
+        Token startNode = ctx.getStart();
+        if (!printedLine.contains(startNode.getLine())){
+            printStream.println(" printf(\"%d \", " + startNode.getLine() + ");");
+            printedLine.add(startNode.getLine());
+        }
+        printStream.println("}");
+    }
+
 
     @Override
     public void enterSingleexprcase(CPP14Parser.SingleexprcaseContext ctx) {
@@ -68,24 +85,22 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterIfblockstatement(CPP14Parser.IfblockstatementContext ctx) {
-//        printStream.print(toPrint);
-        super.enterIfblockstatement(ctx);
+        printLeftBrack();
     }
 
     @Override
     public void exitIfblockstatement(CPP14Parser.IfblockstatementContext ctx) {
-        super.exitIfblockstatement(ctx);
+        printRightBrack(ctx);
     }
 
     @Override
     public void enterElseblockstatement(CPP14Parser.ElseblockstatementContext ctx) {
-//        printStream.print(toPrint);
-        super.enterElseblockstatement(ctx);
+        printLeftBrack();
     }
 
     @Override
     public void exitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx) {
-        super.exitElseblockstatement(ctx);
+        printRightBrack(ctx);
     }
 
     @Override
@@ -101,12 +116,13 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void enterForblockstatement(CPP14Parser.ForblockstatementContext ctx) {
-//        printStream.print(toPrint);
+        printLeftBrack();
         super.enterForblockstatement(ctx);
     }
 
     @Override
     public void exitForblockstatement(CPP14Parser.ForblockstatementContext ctx) {
+        printRightBrack(ctx);
         super.exitForblockstatement(ctx);
     }
 
@@ -2137,8 +2153,9 @@ public class PathFinder extends CPP14BaseListener {
 //            if (currentLineNo == mainLineNo){
 //                printStream.println("freopen(\".\\ir.c\",\"w\",stdout);");
 //            }
-            if (tk.getLine() > firstFundef && tk.getLine() < maxLineNo){
+            if (tk.getLine() > firstFundef && tk.getLine() < maxLineNo && !printedLine.contains(currentLineNo)){
                 printStream.println(" printf(\"%d \", " + currentLineNo + ");");
+                printedLine.add(currentLineNo);
             }
 
             currentLineNo = tk.getLine();

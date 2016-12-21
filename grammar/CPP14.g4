@@ -466,10 +466,6 @@ elseblockstatement
 ;
 
 
-ifstmt
-:
-
-;
 
 condition
 :
