@@ -26,8 +26,11 @@ public class PathFinder extends CPP14BaseListener {
     HashSet<Integer> printedLine = null;
     HashSet<Integer> ifLineNo = null;
     HashSet<Integer> elseLineNo = null;
+    HashSet<Integer> whileLineNo = null;
+    HashSet<Integer> forLineNo = null;
+    HashSet<Integer> caseLineNo = null;
 
-     public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
+    public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
          toPrint = "print(\" *** \";)";
@@ -38,7 +41,9 @@ public class PathFinder extends CPP14BaseListener {
          printedLine = new HashSet<Integer>();
          ifLineNo = new HashSet<Integer>();
          elseLineNo = new HashSet<Integer>();
-
+         whileLineNo = new HashSet<Integer>();
+         forLineNo = new HashSet<Integer>();
+         caseLineNo = new HashSet<Integer>();
          for (String s:headerinfo){
              printStream.println(s);
          }
@@ -148,28 +153,10 @@ public class PathFinder extends CPP14BaseListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        InputStream is  = null;
-        try {
-            is = new FileInputStream("ir/ir.cpp");
+        System.out.println("There are "+ifLineNo.size()+" ifs");
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String line = null;
-        StringBuffer buffer = new StringBuffer();
-        while((line = br.readLine())!=null){
-            buffer.append(line+"\n");
-        }
-        is.close();
-        br.close();
-        String outPut = buffer.toString();
-            outPut = outPut.replaceAll("> >",">>");
-            os = new FileOutputStream("ir/ir.cpp");
-            printStream = new PrintStream(os);
-            printStream.print(outPut);
-            os.close();
-            printStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println("There are "+elseLineNo.size()+" else");
+
         super.exitTranslationunit(ctx);
     }
 
@@ -2188,16 +2175,34 @@ public class PathFinder extends CPP14BaseListener {
             currentLineNo = tk.getLine();
         }
 
-        if (tk.getText() == "if") {
+        if (tk.getText().equals("if")) {
             ifLineNo.add(tk.getLine());
         }
 
-        if(tk.getText() == "else"){
+        if(tk.getText().equals("else")){
             elseLineNo.add(tk.getLine());
         }
 
+        if (tk.getText().equals("while")){
+            whileLineNo.add(tk.getLine());
+        }
+
+        if (tk.getText().equals("for")){
+            forLineNo.add(tk.getLine());
+        }
+
+        if (tk.getText().equals("case")){
+            caseLineNo.add(tk.getLine());
+        }
+
         if (tk.getText() != "<EOF>"){
-            printStream.print(tk.getText()+" ");
+            if(tk.getText().equals("<") || tk.getText().equals(">")){
+                printStream.print(tk.getText());
+            }
+            else{
+                printStream.print(tk.getText()+" ");
+
+            }
         }
 
 
