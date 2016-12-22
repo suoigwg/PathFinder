@@ -28,6 +28,8 @@ public class PathFinder extends CPP14BaseListener {
     HashSet<Integer> elseLineNo = null;
     HashSet<Integer> whileLineNo = null;
     HashSet<Integer> forLineNo = null;
+    HashSet<Integer> caseLineNo = null;
+
     public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
@@ -41,6 +43,7 @@ public class PathFinder extends CPP14BaseListener {
          elseLineNo = new HashSet<Integer>();
          whileLineNo = new HashSet<Integer>();
          forLineNo = new HashSet<Integer>();
+         caseLineNo = new HashSet<Integer>();
          for (String s:headerinfo){
              printStream.println(s);
          }
@@ -2186,6 +2189,10 @@ public class PathFinder extends CPP14BaseListener {
 
         if (tk.getText().equals("for")){
             forLineNo.add(tk.getLine());
+        }
+
+        if (tk.getText().equals("case")){
+            caseLineNo.add(tk.getLine());
         }
 
         if (tk.getText() != "<EOF>"){
