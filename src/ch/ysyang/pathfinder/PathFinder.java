@@ -26,6 +26,7 @@ public class PathFinder extends CPP14BaseListener {
     HashSet<Integer> printedLine = null;
     HashSet<Integer> ifLineNo = null;
     HashSet<Integer> elseLineNo = null;
+
      public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
@@ -147,7 +148,28 @@ public class PathFinder extends CPP14BaseListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        InputStream is  = null;
+        try {
+            is = new FileInputStream("ir/ir.cpp");
 
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        String line = null;
+        StringBuffer buffer = new StringBuffer();
+        while((line = br.readLine())!=null){
+            buffer.append(line+"\n");
+        }
+        is.close();
+        br.close();
+        String outPut = buffer.toString();
+            outPut = outPut.replaceAll("> >",">>");
+            os = new FileOutputStream("ir/ir.cpp");
+            printStream = new PrintStream(os);
+            printStream.print(outPut);
+            os.close();
+            printStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         super.exitTranslationunit(ctx);
     }
 
