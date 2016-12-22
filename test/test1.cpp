@@ -6,6 +6,7 @@ using namespace std;
 //7 8 10 13 14 13 15 18 21 33 34 35 36 37 41 48
 int main(){
     int a = 1;
+    cin>>a;
     if (a == 0) a =1;
     else a = 2;
     if (a < 0) {

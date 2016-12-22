@@ -26,7 +26,9 @@ public class PathFinder extends CPP14BaseListener {
     HashSet<Integer> printedLine = null;
     HashSet<Integer> ifLineNo = null;
     HashSet<Integer> elseLineNo = null;
-     public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
+    HashSet<Integer> whileLineNo = null;
+    HashSet<Integer> forLineNo = null;
+    public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
          toPrint = "print(\" *** \";)";
@@ -37,7 +39,8 @@ public class PathFinder extends CPP14BaseListener {
          printedLine = new HashSet<Integer>();
          ifLineNo = new HashSet<Integer>();
          elseLineNo = new HashSet<Integer>();
-
+         whileLineNo = new HashSet<Integer>();
+         forLineNo = new HashSet<Integer>();
          for (String s:headerinfo){
              printStream.println(s);
          }
@@ -147,6 +150,9 @@ public class PathFinder extends CPP14BaseListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("There are "+ifLineNo.size()+" ifs");
+
+        System.out.println("There are "+elseLineNo.size()+" else");
 
         super.exitTranslationunit(ctx);
     }
@@ -2166,16 +2172,30 @@ public class PathFinder extends CPP14BaseListener {
             currentLineNo = tk.getLine();
         }
 
-        if (tk.getText() == "if") {
+        if (tk.getText().equals("if")) {
             ifLineNo.add(tk.getLine());
         }
 
-        if(tk.getText() == "else"){
+        if(tk.getText().equals("else")){
             elseLineNo.add(tk.getLine());
         }
 
+        if (tk.getText().equals("while")){
+            whileLineNo.add(tk.getLine());
+        }
+
+        if (tk.getText().equals("for")){
+            forLineNo.add(tk.getLine());
+        }
+
         if (tk.getText() != "<EOF>"){
-            printStream.print(tk.getText()+" ");
+            if(tk.getText().equals("<") || tk.getText().equals(">")){
+                printStream.print(tk.getText());
+            }
+            else{
+                printStream.print(tk.getText()+" ");
+
+            }
         }
 
 
