@@ -16,6 +16,7 @@ public class MainFrame extends JFrame {
     String current_open_path;
     String current_run_path;
     String current_compile_path;
+    String save_current_open_path;
     String codesToRun;
     List testDataList;
     JTextArea textArea;
@@ -27,6 +28,7 @@ public class MainFrame extends JFrame {
       //  bayesHandle = new BayesHandle();
         testDataList = new ArrayList<String>();
         isSetTestData =false;
+        save_current_open_path = null;
         current_open_path = null;
         upf = new UsePathFinder();
         JPanel jpanel  = new JPanel();
@@ -106,6 +108,7 @@ public class MainFrame extends JFrame {
 
                     upf.processsFile(current_open_path);
                     File file= new File("ir/ir.cpp");
+                    save_current_open_path = current_open_path;
                     current_open_path =  file.getAbsolutePath();
                     compileProgram("C++");
                     HashSet<Integer> h = new HashSet<Integer>();
@@ -120,7 +123,7 @@ public class MainFrame extends JFrame {
 
                     testDataList.clear();
                     isSetTestData =false;
-
+                    current_open_path = save_current_open_path;
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
