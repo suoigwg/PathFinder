@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Created by ysyang on 20/12/2016.
@@ -30,6 +31,12 @@ public class PathFinder extends CPP14BaseListener {
     HashSet<Integer> forLineNo = null;
     HashSet<Integer> caseLineNo = null;
 
+    HashSet<Integer> coverIf = null;
+    HashSet<Integer> notCoverIf = null;
+    HashSet<Integer> coverWhile = null;
+    HashSet<Integer> notCoverWhile = null;
+    HashSet<Integer> coverSwitch = null;
+
     public PathFinder(int ml, int ff,int mainlineno, ArrayList<String> h) throws FileNotFoundException {
          os = new FileOutputStream("ir/ir.cpp");
          printStream = new PrintStream(os);
@@ -44,12 +51,75 @@ public class PathFinder extends CPP14BaseListener {
          whileLineNo = new HashSet<Integer>();
          forLineNo = new HashSet<Integer>();
          caseLineNo = new HashSet<Integer>();
+         coverIf = new HashSet<Integer>();
+         notCoverIf = new HashSet<Integer>();
+         coverWhile = new HashSet<Integer>();
+         notCoverWhile = new HashSet<Integer>();
+         coverSwitch = new HashSet<Integer>();
          for (String s:headerinfo){
              printStream.println(s);
          }
 
      }
+    public void computeBranchCoverage(HashSet<Integer> h ){
+      Iterator iterator =  ifLineNo.iterator();
+      while(iterator.hasNext()){
+        int lineNo = (int)iterator.next();
+        if(h.contains(lineNo)){
+            coverIf.add(lineNo);
+         }
+         else {
+            notCoverIf.add(lineNo);
+        }
+      }
+      iterator = whileLineNo.iterator();
+      while(iterator.hasNext()){
+          int lineNo = (int)iterator.next();
+          if(h.contains(lineNo)){
+              coverWhile.add(lineNo);
+          }
+          else {
+              notCoverWhile.add(lineNo);
+          }
+      }
+      iterator = forLineNo.iterator();
+        while(iterator.hasNext()){
+            int lineNo = (int)iterator.next();
+            if(h.contains(lineNo)){
+                coverWhile.add(lineNo);
+            }
+            else {
+                notCoverWhile.add(lineNo);
+            }
+        }
 
+        iterator = caseLineNo.iterator();
+        while(iterator.hasNext()){
+            int lineNo = (int)iterator.next();
+            if(h.contains(lineNo)){
+                coverSwitch.add(lineNo);
+            }
+        }
+
+    }
+    public double getBranchCoverage(){
+        double totalBranches;
+        double coveredBranches;
+        double branchCoverageRate;
+        totalBranches = ifLineNo.size()+elseLineNo.size()+whileLineNo.size()*2+forLineNo.size()*2 +caseLineNo.size();
+
+        coveredBranches = coverIf.size()+coverSwitch.size()+coverWhile.size()+notCoverIf.size()+notCoverWhile.size();
+        branchCoverageRate = coveredBranches/totalBranches;
+        System.out.println("coverageBrandes: "+coveredBranches);
+        System.out.println("totalBranches: "+totalBranches);
+        coverIf.clear();
+        coverSwitch.clear();
+        coverWhile.clear();
+        notCoverIf.clear();
+        notCoverWhile.clear();
+        return branchCoverageRate;
+
+    }
     public  void printLeftBrack(){
         printStream.print("{");
     }
