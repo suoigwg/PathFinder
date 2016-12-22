@@ -423,9 +423,9 @@ statementseq
 
 selectionstatement
 :
-	If '(' condition ')' ifblockstatement
-	| If '(' condition ')' ifblockstatement Else elseblockstatement
-	| Switch '(' condition ')' switchblockstatement
+	If '(' condition ')' ifblockstatement                               #noElseIF
+	| If '(' condition ')' ifblockstatement Else elseblockstatement     #ElseIf
+	| Switch '(' condition ')' switchblockstatement                     #Swich
 ;
 switchblockstatement
 

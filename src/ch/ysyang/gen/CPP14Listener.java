@@ -519,15 +519,41 @@ public interface CPP14Listener extends ParseTreeListener {
 	 */
 	void exitStatementseq(CPP14Parser.StatementseqContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link CPP14Parser#selectionstatement}.
+	 * Enter a parse tree produced by the {@code noElseIF}
+	 * labeled alternative in {@link CPP14Parser#selectionstatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterSelectionstatement(CPP14Parser.SelectionstatementContext ctx);
+	void enterNoElseIF(CPP14Parser.NoElseIFContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link CPP14Parser#selectionstatement}.
+	 * Exit a parse tree produced by the {@code noElseIF}
+	 * labeled alternative in {@link CPP14Parser#selectionstatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitSelectionstatement(CPP14Parser.SelectionstatementContext ctx);
+	void exitNoElseIF(CPP14Parser.NoElseIFContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ElseIf}
+	 * labeled alternative in {@link CPP14Parser#selectionstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIf(CPP14Parser.ElseIfContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ElseIf}
+	 * labeled alternative in {@link CPP14Parser#selectionstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIf(CPP14Parser.ElseIfContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Swich}
+	 * labeled alternative in {@link CPP14Parser#selectionstatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterSwich(CPP14Parser.SwichContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Swich}
+	 * labeled alternative in {@link CPP14Parser#selectionstatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitSwich(CPP14Parser.SwichContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CPP14Parser#switchblockstatement}.
 	 * @param ctx the parse tree
@@ -558,16 +584,6 @@ public interface CPP14Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CPP14Parser#ifstmt}.
-	 * @param ctx the parse tree
-	 */
-	void enterIfstmt(CPP14Parser.IfstmtContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CPP14Parser#ifstmt}.
-	 * @param ctx the parse tree
-	 */
-	void exitIfstmt(CPP14Parser.IfstmtContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CPP14Parser#condition}.
 	 * @param ctx the parse tree

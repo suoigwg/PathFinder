@@ -7,8 +7,12 @@ using namespace std;
 int main(){
     int a = 1;
     cin>>a;
-    if (a == 0) a =1;
-    else a = 2;
+    if (a == 0)
+        a =1;
+    if (a > 1)
+        if (a > 10)
+            if (a > 100){}
+                else a = 2;
     if (a < 0) {
         a = -a;
     }else{

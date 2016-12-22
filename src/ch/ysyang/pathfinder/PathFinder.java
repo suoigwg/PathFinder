@@ -133,6 +133,24 @@ public class PathFinder extends CPP14BaseListener {
         printStream.println("}");
     }
 
+    public void printElseRightBrack(ParserRuleContext ctx){
+        Token startNode = ctx.getStart();
+        if (!printedLine.contains(startNode.getLine())){
+            printStream.println(" printf(\"%d \", " + -1*startNode.getLine() + ");");
+            printedLine.add(startNode.getLine());
+        }
+        printStream.println("}");
+    }
+
+    public void addEmptyElse(ParserRuleContext ctx){
+        printStream.print("else ");
+        printStream.print("{");
+        Token startNode = ctx.getStart();
+            printStream.print(" printf(\"%d \", " +-1* startNode.getLine() + ");");
+            elseLineNo.add(-1* startNode.getLine());
+            printedLine.add(startNode.getLine());
+        printStream.println("}");
+    }
 
     @Override
     public void enterSingleexprcase(CPP14Parser.SingleexprcaseContext ctx) {
@@ -142,16 +160,6 @@ public class PathFinder extends CPP14BaseListener {
     @Override
     public void exitSingleexprcase(CPP14Parser.SingleexprcaseContext ctx) {
 //        printStream.print(toPrint);
-    }
-
-    @Override
-    public void enterIfstmt(CPP14Parser.IfstmtContext ctx) {
-        super.enterIfstmt(ctx);
-    }
-
-    @Override
-    public void exitIfstmt(CPP14Parser.IfstmtContext ctx) {
-        super.exitIfstmt(ctx);
     }
 
     @Override
@@ -181,7 +189,9 @@ public class PathFinder extends CPP14BaseListener {
 
     @Override
     public void exitElseblockstatement(CPP14Parser.ElseblockstatementContext ctx) {
-        printRightBrack(ctx);
+
+        printElseRightBrack(ctx);
+
     }
 
     @Override
@@ -722,20 +732,6 @@ public class PathFinder extends CPP14BaseListener {
         super.exitStatementseq(ctx);
     }
 
-    @Override
-    public void enterSelectionstatement(CPP14Parser.SelectionstatementContext ctx) {
-        // printStream.print(" ");
-
-        super.enterSelectionstatement(ctx);
-    }
-
-    @Override
-    public void exitSelectionstatement(CPP14Parser.SelectionstatementContext ctx) {
-
-
-//        printStream.print(" print(\"hello\") ");
-//         super.exitSelectionstatement(ctx);
-    }
 
     @Override
     public void enterCondition(CPP14Parser.ConditionContext ctx) {
@@ -2311,5 +2307,34 @@ public class PathFinder extends CPP14BaseListener {
         super.finalize();
     }
 
+    @Override
+    public void enterNoElseIF(CPP14Parser.NoElseIFContext ctx) {
+        super.enterNoElseIF(ctx);
+    }
 
+    @Override
+    public void exitNoElseIF(CPP14Parser.NoElseIFContext ctx) {
+        addEmptyElse(ctx);
+
+    }
+
+    @Override
+    public void enterElseIf(CPP14Parser.ElseIfContext ctx) {
+        super.enterElseIf(ctx);
+    }
+
+    @Override
+    public void exitElseIf(CPP14Parser.ElseIfContext ctx) {
+        super.exitElseIf(ctx);
+    }
+
+    @Override
+    public void enterSwich(CPP14Parser.SwichContext ctx) {
+        super.enterSwich(ctx);
+    }
+
+    @Override
+    public void exitSwich(CPP14Parser.SwichContext ctx) {
+        super.exitSwich(ctx);
+    }
 }
