@@ -2246,7 +2246,7 @@ public class PathFinder extends CPP14BaseListener {
         }
 
         if(tk.getText().equals("else")){
-            elseLineNo.add(tk.getLine());
+            elseLineNo.add(-1*tk.getLine());
         }
 
         if (tk.getText().equals("while")){
