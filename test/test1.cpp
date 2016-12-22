@@ -1,9 +1,8 @@
-#include <iostream>     //5 6 9 10 11 14 19 20 21 23
+#include <iostream>
 #include <algorithm>
 #include <thread>
 #include <vector>
 using namespace std;
-//7 8 10 13 14 13 15 18 21 33 34 35 36 37 41 48
 int main(){
     int a = 1;
     cin>>a;
@@ -13,6 +12,8 @@ int main(){
         if (a > 10)
             if (a > 100){}
                 else a = 2;
+        else a = 3;
+    else a = 4;
     if (a < 0) {
         a = -a;
     }else{

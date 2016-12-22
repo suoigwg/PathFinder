@@ -1,3 +1,7 @@
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import org.pushingpixels.substance.api.SubstanceLookAndFeel;
+
+import javax.swing.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.regex.Matcher;
@@ -9,7 +13,18 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String [] args){
-      MainFrame main =   new MainFrame();
+
+        try
+        {
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.osLookAndFeelDecorated;
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+        }
+        catch(Exception e)
+        {
+
+        }
+
+        MainFrame main =   new MainFrame();
 
 
     }

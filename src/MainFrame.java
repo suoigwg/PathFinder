@@ -33,7 +33,9 @@ public class MainFrame extends JFrame {
         textArea  = new JTextArea(30,50);
         outputArea  =new JTextArea(10,50);
         jpanel.setLayout(new BorderLayout());
-        jpanel.add(new JScrollPane(textArea),BorderLayout.CENTER);
+        JScrollPane textPanel =  new JScrollPane(textArea);
+        //textPanel.setRowHeaderView(new LineNumberHeaderView());
+        jpanel.add(textPanel,BorderLayout.CENTER);
         jpanel.add(new JScrollPane(outputArea),BorderLayout.SOUTH);
         this.add(jpanel);
 
@@ -228,7 +230,7 @@ public class MainFrame extends JFrame {
     public void highLight(HashSet<Integer> hs) throws BadLocationException {
         int lineNumber;
         DefaultHighlighter h  = (DefaultHighlighter) textArea.getHighlighter();
-        MyHighLightPainter myHighLightPainter = new MyHighLightPainter(new Color(255, 51, 46));
+        MyHighLightPainter myHighLightPainter = new MyHighLightPainter(new Color(255, 247, 104));
         h.removeAllHighlights();
 
         if(hs==null)
@@ -236,6 +238,8 @@ public class MainFrame extends JFrame {
         Iterator iterator = hs.iterator();
         while (iterator.hasNext()){
             lineNumber = (int)iterator.next();
+            lineNumber = lineNumber>0?lineNumber:-lineNumber;
+            lineNumber -=1;
            int start = textArea.getLineStartOffset(lineNumber);
            int end = textArea.getLineEndOffset(lineNumber);
            System.out.println("start "+start+" end "+end);
@@ -425,7 +429,7 @@ public class MainFrame extends JFrame {
         HashSet<Integer> h = new HashSet<Integer>();
         int num_start;
         int num_end;
-        Pattern p  = Pattern.compile("\\s*?[0-9]+");
+        Pattern p  = Pattern.compile("\\s*?-?[0-9]+");
         Matcher m = p.matcher(output);
         String result = null;
         int num;
@@ -433,6 +437,7 @@ public class MainFrame extends JFrame {
         {
             result  = m.group();
             result = result.trim();
+            System.out.println(result);
             num = Integer.parseInt(result);
             h.add(num);
         }
@@ -442,7 +447,7 @@ public class MainFrame extends JFrame {
     }
     private String openJFileChooser(String name,int  type){
         //String current_directory="src/record/";
-        String current_directory   = "/Users/yingyue/Desktop";
+        String current_directory   = "/Users/yingyue/Desktop/testData";
         JFileChooser jFileChooser=new JFileChooser();
         File current_directory_file=new File(current_directory);
         jFileChooser.setCurrentDirectory(null);
@@ -462,7 +467,7 @@ public class MainFrame extends JFrame {
     }
     private List openTestDate (String name, int  type){
         //String current_directory="src/record/";
-        String current_directory   = "/Users/yingyue/Desktop";
+        String current_directory   = "/Users/yingyue/Desktop/testData/";
         JFileChooser jFileChooser=new JFileChooser();
         jFileChooser.setMultiSelectionEnabled(true);
         File current_directory_file=new File(current_directory);

@@ -69,14 +69,26 @@ public class PathFinder extends CPP14BaseListener {
             coverIf.add(lineNo);
          }
          else {
-            notCoverIf.add(lineNo);
+
         }
       }
+         iterator =  elseLineNo.iterator();
+        while(iterator.hasNext()){
+            int lineNo = (int)iterator.next();
+            if(h.contains(lineNo)){
+                notCoverIf.add(lineNo);
+            }
+            else {
+
+            }
+        }
+
       iterator = whileLineNo.iterator();
       while(iterator.hasNext()){
           int lineNo = (int)iterator.next();
           if(h.contains(lineNo)){
               coverWhile.add(lineNo);
+              notCoverWhile.add(lineNo);
           }
           else {
               notCoverWhile.add(lineNo);
@@ -87,6 +99,7 @@ public class PathFinder extends CPP14BaseListener {
             int lineNo = (int)iterator.next();
             if(h.contains(lineNo)){
                 coverWhile.add(lineNo);
+                notCoverWhile.add(lineNo);
             }
             else {
                 notCoverWhile.add(lineNo);
@@ -120,6 +133,7 @@ public class PathFinder extends CPP14BaseListener {
         return branchCoverageRate;
 
     }
+//    public double get
     public  void printLeftBrack(){
         printStream.print("{");
     }
@@ -2246,7 +2260,7 @@ public class PathFinder extends CPP14BaseListener {
         }
 
         if(tk.getText().equals("else")){
-            elseLineNo.add(tk.getLine());
+            elseLineNo.add(-1*tk.getLine());
         }
 
         if (tk.getText().equals("while")){
