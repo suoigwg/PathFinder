@@ -23,6 +23,7 @@ public class PathFinder extends CPP14BaseListener {
     int maxLineNo;
     int mainLineNo = 0;
     int firstFundef = 0;
+    String last_token = "";
     ArrayList<String> headerinfo = null;
     HashSet<Integer> printedLine = null;
     HashSet<Integer> ifLineNo = null;
@@ -2247,7 +2248,7 @@ public class PathFinder extends CPP14BaseListener {
 //            if (currentLineNo == mainLineNo){
 //                printStream.println("freopen(\".\\ir.c\",\"w\",stdout);");
 //            }
-            if (tk.getLine() > firstFundef && tk.getLine() < maxLineNo && !printedLine.contains(currentLineNo)){
+            if (tk.getLine() > firstFundef && tk.getLine() < maxLineNo && !printedLine.contains(currentLineNo) && !last_token.equals("}")){
                 printStream.println(" printf(\"%d \", " + currentLineNo + ");");
                 printedLine.add(currentLineNo);
             }
@@ -2278,10 +2279,11 @@ public class PathFinder extends CPP14BaseListener {
         if (tk.getText() != "<EOF>"){
             if(tk.getText().equals("<") || tk.getText().equals(">")){
                 printStream.print(tk.getText());
+                last_token = tk.getText();
             }
             else{
                 printStream.print(tk.getText()+" ");
-
+                last_token = tk.getText();
             }
         }
 
